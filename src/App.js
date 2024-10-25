@@ -1,24 +1,38 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { BrowserRouter, Route, Routes,  } from 'react-router-dom';
+import Home from './components/Home/Home';
+import { Toaster } from 'react-hot-toast';
+import GameHistory from './components/history/GameHistory';
 
 function App() {
+  const toastoption={
+    // Define default options
+    className: '',
+    duration: 5000,
+    style: {
+      background: '#363636',
+      color: '#fff',
+    },
+  
+    // Default options for specific types
+    success: {
+      duration: 3000,
+      theme: {
+        primary: 'green',
+        secondary: 'black',
+      },
+    },
+  
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home/>}/>
+      <Route path="/game/history" element={<GameHistory/>}/>
+    </Routes>
+    <Toaster  position='top-center' toastOptions={toastoption}/>
+    </BrowserRouter>
   );
 }
 
