@@ -41,7 +41,7 @@ function Home() {
             setResult(roundResult); // Set the current round result
     
             // Check if maximum rounds are reached
-            if (rounds  === 6) {
+            if (rounds+1  === 6) {
                 const finalResult = score1 > score2
                     ? `${player1} wins the game!`
                     : score1 < score2
