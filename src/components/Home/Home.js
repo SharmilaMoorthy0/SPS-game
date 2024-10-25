@@ -18,9 +18,11 @@ function Home() {
 
     const choices = ['stone', 'paper', 'scissors'];
 
-    const playRound = () => {
+    const playGame = () => {
         if (rounds < 6) {
             let roundResult = '';
+    
+            // Determine the round result
             if (player1Choice === player2Choice) {
                 roundResult = "It's a tie!";
             } else if (
@@ -29,28 +31,32 @@ function Home() {
                 (player1Choice === 'paper' && player2Choice === 'stone')
             ) {
                 roundResult = `${player1} wins this round!`;
-                setScore1(prev => prev + 1);
+                setScore1(prev => prev + 1); // Update Player 1's score
             } else {
                 roundResult = `${player2} wins this round!`;
-                setScore2(prev => prev + 1);
+                setScore2(prev => prev + 1); // Update Player 2's score
             }
-
-            setRounds(prev => prev + 1);
-            setResult(roundResult);
-
+    
+            setRounds(prev => prev + 1); // Increment the round count
+            setResult(roundResult); // Set the current round result
+    
+            // Check if maximum rounds are reached
             if (rounds + 1 === 6) {
                 const finalResult = score1 > score2
-                    ?`${player1} wins the game!`
+                    ? `${player1} wins the game!`
                     : score1 < score2
                         ? `${player2} wins the game!`
-                        : "The game is a tie!";
+                        : "The game is a tie!"; // Handle tie scenario
+    
+                // Save the final score and result for history
+                saveGame({ player1, player2, score1: score1 + (roundResult.includes(player1) ? 1 : 0), score2: score2 + (roundResult.includes(player2) ? 1 : 0), rounds: 6 });
                 setResult(prev => `${prev}\n${finalResult}`);
-                saveGame({ player1, player2, score1, score2, rounds: 6 });
             }
         } else {
             toast.error("Maximum rounds reached!");
         }
     };
+    
 
     const saveGame = async (gameData) => {
          axios.post('https://sps-backend-er38.onrender.com/new/game', gameData).then((response)=>{
@@ -123,7 +129,7 @@ function Home() {
                 </select>
             </div>
             <button
-                onClick={playRound}
+                onClick={()=>playgame()}
                 className="bg-yellow-500 text-white p-4 rounded hover:bg-yellow-600 w-full max-w-sm mb-4"
                 disabled={!player1 || !player2}
             >
@@ -152,6 +158,8 @@ function Home() {
                 >
                     Game History
                 </a>
+               
+
                 <button 
                     onClick={resetGame}
                     className="bg-green-500 text-white p-4 rounded hover:bg-green-600 w-full"
