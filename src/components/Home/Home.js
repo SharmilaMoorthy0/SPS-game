@@ -53,7 +53,7 @@ function Home() {
     };
 
     const saveGame = async (gameData) => {
-         axios.post('http://localhost:3000/new/game', gameData).then((response)=>{
+         axios.post('https://sps-backend-er38.onrender.com/new/game', gameData).then((response)=>{
             if (response.data.status === 1) {
               toast.success(response.data.message);
               fetchGames();
@@ -66,7 +66,7 @@ function Home() {
     };
 
     const fetchGames = () => {
-        axios.get('http://localhost:3000/all/game').then((response)=>{
+        axios.get('https://sps-backend-er38.onrender.com/all/game').then((response)=>{
               if (response.data.status === 1) {
                 setGames(response.data.response);
               }

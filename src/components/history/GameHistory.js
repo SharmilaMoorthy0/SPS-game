@@ -11,7 +11,7 @@ function GameHistory() {
     const fetchGames = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:3000/all/game');
+            const response = await axios.get('https://sps-backend-er38.onrender.com/all/game');
             if (response.data.status === 1) {
                 setGames(response.data.response);
             }  
@@ -27,7 +27,7 @@ function GameHistory() {
         fetchGames();
     }, []);
     const remove = (list) => {
-        axios.delete(`http://localhost:3000/delete/game/${list._id}`,).then((res) => {
+        axios.delete(`https://sps-backend-er38.onrender.com/delete/game/${list._id}`,).then((res) => {
             if (res.data.status === 1) {
                 toast.success(res.data.message)
                 fetchGames()
